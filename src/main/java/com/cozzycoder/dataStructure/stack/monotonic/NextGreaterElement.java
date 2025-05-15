@@ -13,7 +13,7 @@ public class NextGreaterElement {
 
         Stack<Integer> stack = new Stack<>();
         Map<Integer, Integer> map = new HashMap<>();
-        int [] ans = new int[num1.length];
+        int [] ans = new int[nums1.length];
         for (int num : nums2){
 
             while(!stack.isEmpty() && stack.peek() < num){
