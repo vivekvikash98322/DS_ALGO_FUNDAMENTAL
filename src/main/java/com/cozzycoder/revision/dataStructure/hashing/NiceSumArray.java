@@ -8,85 +8,100 @@ import java.util.Queue;
 public class NiceSumArray {
 
     public static void main(String[] args) {
-        System.out.println(numberOfSubarrays_3(new int [] {4, 1, 2, 3, 7, 9, 1, 2, 8}, 2));
+        System.out.println(solution_1(new int [] {4, 1, 2, 3, 7, 9, 1, 2, 8}, 2));
+        System.out.println(solution_2(new int [] {4, 1, 2, 3, 7, 9, 1, 2, 8}, 2));
+        System.out.println(solution_3(new int [] {4, 1, 2, 3, 7, 9, 1, 2, 8}, 2));
     }
 
-    public static int numberOfSubarrays(int[] nums, int k) {
-
-        int [] arr = new int [nums.length];
-        int count = 0;
-        int ans = 0;
+    private static int solution_3(int[] nums, int k) {
+        int start = 0;
         int length = nums.length;
-        arr[0] = 1;
-        for (int i = 0; i < length; i++) {
+        int end = 0;
+        int ans = 0;
+        int oddCount = 0 ;
+        int gap = 0;
+        while (end < length) {
 
-            count += nums[i] % 2;
+            oddCount += nums[end] %2;
 
-            if(count - k >= 0 ){
-                ans += arr[count - k];
+            if(oddCount == k) {
+                gap = 0;
+                while(oddCount >= k) {
+                    oddCount -= nums[start] % 2;
+                    start++;
+                    gap++;
+
+                }
             }
 
-            arr[count]++;
-        }
+            ans += gap;
 
+            end++;
+
+        }
         return ans;
     }
 
-    public static int numberOfSubarrays_2(int[] nums, int k) {
-
-        Queue<Integer> integers = new LinkedList<>();
-
-        int end = 0;
+    private static int solution_2(int[] nums, int k) {
         int start = 0;
-        int subArray = 0;
-        while(end < nums.length){
-
-            if(nums[end] % 2 != 0){
-                integers.add(end);
-            }
-
-
-            if(integers.size() > k){
-                start = integers.poll() + 1;
-            }
-
-            if(integers.size() == k){
-                subArray += integers.element() - start + 1;
-            }
-
-            end++;
-        }
-
-        return subArray;
-    }
-
-    public static int numberOfSubarrays_3(int[] nums, int k) {
-
-        int oddCount = 0;
+        int length = nums.length;
         int end = 0;
-        int start = 0;
-        int subArray = 0;
-        int evenNumber = 0;
-        while(end < nums.length){
+        int ans = 0;
+        int oddCount = 0 ;
+        while (end < length) {
+
+            oddCount += nums[end] %2;
+
+            while(oddCount > k){
+                oddCount -= nums[start] % 2;
+                start++;
+            }
 
 
-            oddCount += nums[end] % 2 ;
+            if(oddCount == k) {
 
+                int firstOdd = start;
 
-            if(oddCount == k){
-                evenNumber = 0;
-
-                while(oddCount == k){
-                    oddCount -= nums[start] % 2;
-                    start++;
-                    evenNumber++;
+                while(nums[firstOdd] % 2 == 0) {
+                    firstOdd++;
                 }
+
+                ans += firstOdd - start + 1;
             }
-            subArray += evenNumber;
+
+            end++;
+
+        }
+        return ans;
+    }
+
+    private static int solution_1(int[] nums, int k) {
+
+        Queue<Integer> oddNumber = new LinkedList<>();
+        int start = 0;
+        int length = nums.length;
+        int end = 0;
+        int ans = 0;
+        while(end < length) {
+
+            if(nums[end] % 2 != 0) {
+                oddNumber.add(end);
+            }
+
+            if(oddNumber.size() > k) {
+                start = oddNumber.poll();
+                start++;
+            }
+
+            if(oddNumber.size() == k) {
+                ans += oddNumber.element() - start + 1;
+            }
 
             end++;
         }
 
-        return subArray;
+        return ans;
+
     }
+
 }
