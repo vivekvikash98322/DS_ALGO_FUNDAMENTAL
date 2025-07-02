@@ -1,6 +1,5 @@
 .gradle/**
 *.class
 build/**
-.gradle
 /.gradle/**
 /.gradle/8.5/**
