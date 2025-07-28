@@ -7,7 +7,7 @@ public class MoveZeros {
         int [] nums  = new int [] {0, 1, 0, 3, 12};
 
         approch_1(nums);
-        System.out.println("************************8");
+        System.out.println("8");
         approch_2(nums);
     }
 

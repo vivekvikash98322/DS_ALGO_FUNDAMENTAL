@@ -1,5 +1,5 @@
-.gradle/**
-*.class
-build/**
-/.gradle/**
-/.gradle/8.5/**
+.gradle/
+.class
+build/
+/.gradle/
+/.gradle/8.5/
